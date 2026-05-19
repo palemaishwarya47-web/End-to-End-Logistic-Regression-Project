@@ -1,0 +1,574 @@
+11/5/2026
+
+Logistic Regression
+
+1.Why we need to move from Linear to Logistic
+2.Why it is called Logistic Regression
+3.Math behind Logistic Regression
+4.Sigmoid Function with Calculation
+5.Understanding m & c values
+6.Confusion Matrix
+7.Evaluation Metrics
+8.End-to-end Logistic Regression Project
+9.Real time examples
+---------------------------------------------------------------------
+1.Why we need to move from Linear to Logistic??
+
+1. Linear Regression predicts continuous values.
+
+2. Examples:
+
+   * House Price Prediction
+   * Salary Prediction
+   * Marks Prediction
+
+3. But classification problems need outputs like:
+
+   * Yes / No
+   * True / False
+   * 0 / 1
+
+4. Linear Regression may predict values like:
+
+   * 1.8
+   * -2.5
+   * 0.8
+
+5. These values do not make sense for classification problems.
+
+6. So we need a model that gives output only between 0 and 1.
+
+7. Logistic Regression uses Sigmoid Function to convert values into probabilities.
+
+8. If probability > 0.5 → Class 1
+
+9. If probability < 0.5 → Class 0
+
+10. That is why we use Logistic Regression.
+
+--------------------------------------------------------------------------
+2.Why it is called Logistic Regression??
+
+
+Logistic Regression uses a regression equation internally:
+
+z = mx + c
+
+where:
+m = slope or weight
+x = input feature
+c = intercept or bias
+
+Then it applies a special function called:
+
+Sigmoid Function:
+
+z = 1/(1+e^(-z))
+
+This converts values from:
+-infi to +infi
+
+into:
+0 to 1
+
+The sigmoid function changes large values
+into probability values between 0 and 1.
+
+If output > 0.5 → Class 1
+If output < 0.5 → Class 0
+
+Hence it performs classification using regression mathematics.
+
+That is why it is called Logistic Regression.
+
+
+3.Math behind Logistic Regression
+
+Logistic Regression first uses a linear equation:
+
+z = mx + c
+
+where:
+m = slope
+c = intercept
+x = input value
+
+m decides how much the input affects the output.
+c shifts the line left or right.
+
+Example:
+
+m = 2
+c = -6
+
+Then:
+
+z = 2x - 6
+
+If x = 4
+
+z = (2 * 4) - 6
+z = 8 - 6
+z = 2
+
+This z value is then passed into the Sigmoid Function
+to convert it into a probability value between 0 and 1.
+
+Code:
+
+x = 4
+
+z = (m * x) + c
+
+print("m value:", m)
+print("c value:", c)
+print("x value:", x)
+print("z value:", z)
+
+------------------------------------------------------------------------
+
+4.Sigmoid Function Calculation
+
+The Sigmoid Function is used in Logistic Regression
+to convert values into probability values between 0 and 1.
+
+Formula:
+
+:contentReference[oaicite:0]{index=0}
+
+Example:
+
+z = 2
+
+sigmoid = 1 / (1 + e^-2)
+
+Output = 0.88
+
+This means the probability is 88%.
+
+If probability > 0.5:
+Class = 1
+
+If probability < 0.5:
+Class = 0
+
+Here the output is greater than 0.5,
+so the prediction becomes:
+
+Prediction : Pass (Class 1)
+
+The Sigmoid Function helps Logistic Regression
+perform classification problems easily.
+Sigmoid Function Calculation:
+
+The Sigmoid Function converts the z value
+into a probability value between 0 and 1.
+
+It is the main function used in Logistic Regression
+for classification problems.
+
+import math
+
+z = 2
+
+sigmoid = 1/ (1+math.exp(-z))
+
+print("z value:", z)
+print("Sigmoid probability:", sigmoid)
+
+Here the sigmoid output will be around 0.88
+
+That means:
+88% probability belongs to Class 1
+
+If probability > 0.5:
+
+class = 1
+
+else:
+class = 0
+
+probability = sigmoid
+
+if probability > 0.5:
+        print("Prediction : Pass (Class 1)")
+else:
+        print("Prediction : Fail (Class 0)")
+
+Since the probability is greater than 0.5,
+the final prediction becomes:
+
+Prediction : Pass (Class 1)
+
+-------------------------------------------------------------------------
+
+Visualizing the Sigmoid Curve
+
+The Sigmoid Curve is an S-shaped curve used in Logistic Regression.
+
+It converts values from:
+-infinity to +infinity
+
+into:
+0 to 1
+
+The curve helps to convert linear outputs
+into probability values.
+
+If the output is close to 1:
+Prediction belongs to Class 1
+
+If the output is close to 0:
+Prediction belongs to Class 0
+
+In this graph:
+x-axis → z values
+y-axis → Sigmoid output
+
+The curve increases smoothly from 0 to 1.
+
+This visualization helps us understand
+how Logistic Regression performs classification.
+
+Code:
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(-10,10,100)
+y = 1/(1+np.exp(-x))
+
+plt.figure(figsize = (8,5))
+plt.plot(x,y)
+
+plt.xlabel("z values")
+plt.ylabel("Sigmoid output")
+plt.title("Sigmoid Curve")
+
+plt.grid(True)
+
+plt.show()
+
+
+
+--------------------------------------------------------------------------
+
+
+Confusion Matrix:
+
+Confusion Matrix is used to check the performance of a classification model.
+
+It compares Actual values with Predicted values.
+
+1 = Positive
+0 = Negative
+
+Types in Confusion Matrix:
+
+1. True Positive (TP)
+Actual = 1 and Predicted = 1
+
+2. False Negative (FN)
+Actual = 1 and Predicted = 0
+
+3. False Positive (FP)
+Actual = 0 and Predicted = 1
+
+4. True Negative (TN)
+Actual = 0 and Predicted = 0
+
+Confusion Matrix
+
+Actual    Predicted    Result
+
+1         1            True Positive
+1         0            False Negative
+0         1            False Positive
+0         0            True Negative
+
+-------------------------------------------------------------------------
+
+
+Evaluation Metrics
+
+Evaluation Metrics are used to measure the performance of a classification model.
+
+1. Accuracy
+
+Accuracy checks overall correct predictions.
+
+Formula:
+
+Accuracy = (TP + TN) / (TP + TN + FP + FN)
+
+2. Precision
+
+Precision checks how many predicted positive values are actually correct.
+
+Formula:
+
+Precision = TP / (TP + FP)
+
+3. Recall
+
+Recall checks how many actual positive values are correctly predicted.
+
+Formula:
+
+Recall = TP / (TP + FN)
+
+4. F1 Score
+
+F1 Score balances Precision and Recall.
+
+Formula:
+
+F1 Score = 2 * Precision * Recall / (Precision + Recall)
+---------------------------------------------------------------------------------
+
+End-to-end Logistic Regression Project
+
+
+Student Pass/ Fail Prediction:
+
+Features:
+Study Hours
+
+Target:
+Pass or Fail
+
+Logistic Regression is used here
+to predict whether a student will
+Pass or Fail based on study hours.
+
+If the student studies more hours,
+the probability of passing increases.
+
+# Import libraries
+
+import pandas as pd
+import numpy as np
+
+# Create dataset
+
+data = {
+        "Study_Hours": [1,2,3,4,5,6,7,8,9,10],
+        "Pass":[0,0,0,0,1,1,1,1,1,1]
+}
+
+df = pd.DataFrame(data)
+
+The dataset contains:
+0 → Fail
+1 → Pass
+
+This dataset will be used to train
+the Logistic Regression model.
+---------------------------------------------------------------------------------
+
+Separate Independent and Dependent Variables
+
+Independent Variable:
+Study Hours
+
+Dependent Variable:
+Pass
+
+x is called Independent Variable
+because it is the input feature.
+
+y is called Dependent Variable
+because output depends on input.
+
+Here:
+Study Hours → Input
+Pass → Output
+
+Code:
+
+x = df[["Study_Hours"]]
+
+y = df[["Pass"]]
+
+print(x)
+print(y)
+---------------------------------------------------------------------------------
+Train Logistic Regression Model
+
+After splitting the dataset,
+the Logistic Regression model is trained.
+
+The model learns patterns from the training data.
+
+x_train → Input features for training
+y_train → Output labels for training
+
+The fit() function is used to train the model.
+
+Here:
+values.ravel() converts the output
+into a 1-dimensional array.
+
+This helps remove warnings during model training.
+
+Code:
+
+from sklearn.linear_model import LogisticRegression
+
+model = LogisticRegression()
+
+model.fit(x_train, y_train.values.ravel())
+
+print("Model Trained Successfully")
+-------------------------------------------------------------------------------
+
+m & c values
+
+After training the Logistic Regression model,
+the model automatically learns:
+
+m = slope or weight
+c = intercept or bias
+
+m shows how much the input affects the output.
+
+c shifts the curve left or right.
+
+Using these values,
+the z value is calculated.
+
+Formula:
+
+z = mx + c
+
+Then the Sigmoid Function converts
+the z value into probability.
+
+If probability is high:
+Prediction → Pass
+
+If probability is low:
+Prediction → Fail
+
+Code:
+
+import math
+
+m = model.coef_[0][0]
+
+c = model.intercept_[0]
+
+print("m value:", m)
+print("c value:", c)
+
+x = 5
+
+z = m * x + c
+
+print("For x =", x)
+print("Calculated z value:", z)
+
+probability = 1 / (1 + math.exp(-z))
+
+print("Probability:", probability)
+
+if probability > 0.6:
+    print("Prediction: Pass")
+else:
+    print("Prediction: Fail")
+
+y_pred = model.predict(x_test)
+
+print("Predictions:", y_pred)
+
+Comparison = pd.DataFrame({
+    "Actual": y_test.values.ravel(),
+    "Predicted": y_pred
+})
+
+print(Comparison)
+
+---------------------------------------------------------------------------------
+
+Confusion Matrix
+
+Confusion Matrix is used to check
+how well the Logistic Regression model works.
+
+It compares:
+Actual values
+vs
+Predicted values
+
+It contains:
+
+1. True Positive (TP)
+Model correctly predicted positive.
+
+2. True Negative (TN)
+Model correctly predicted negative.
+
+3. False Positive (FP)
+Model predicted positive but actually negative.
+
+4. False Negative (FN)
+Model predicted negative but actually positive.
+
+Code:
+
+from sklearn.metrics import confusion_matrix
+
+cm = confusion_matrix(y_test, y_pred)
+
+print(cm)
+---------------------------------------------------------------------------------
+
+Evaluation Metrics
+
+Evaluation Metrics are used to measure
+how well the Logistic Regression model performs.
+
+1. Accuracy
+Shows overall correct predictions.
+
+2. Precision
+Out of predicted positive values,
+how many are actually positive.
+
+3. Recall
+Out of actual positive values,
+how many are correctly predicted.
+
+4. F1 Score
+Balance between Precision and Recall.
+
+5. Classification Report
+Displays Accuracy, Precision,
+Recall and F1 Score together.
+
+Code:
+
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import f1_score
+from sklearn.metrics import classification_report
+
+accuracy = accuracy_score(y_test, y_pred)
+
+print("Accuracy:", accuracy)
+
+precision = precision_score(y_test, y_pred)
+
+print("Precision:", precision)
+
+recall = recall_score(y_test, y_pred)
+
+print("Recall:", recall)
+
+f1 = f1_score(y_test, y_pred)
+
+print("F1 Score:", f1)
+
+print(classification_report(y_test, y_pred))
+
